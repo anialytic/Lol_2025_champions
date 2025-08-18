@@ -18,10 +18,36 @@ SELECT name
 	, mobility
 	, utility
 	, style
-	, be
-	, rp
 FROM champs
 WHERE difficulty = 1 AND style = 100
+
+--Найнижча складність, універсальні
+SELECT name
+	, difficulty
+	, herotype
+	, alttype
+	, rangetype
+	, role
+	, damage
+	, toughness
+	, control
+	, mobility
+	, utility
+	, style
+FROM champs
+WHERE difficulty = 1 AND style <=20
+
+--З чим пов'язаний низький дамаг? (вузькоспеціалізовані танки)
+SELECT 
+    name,
+    difficulty,
+    herotype,
+    alttype,
+    damage,
+    style
+FROM champs
+WHERE damage = 1 AND herotype = 'Support'
+GROUP BY name, difficulty, herotype, alttype, damage, style
 
 /*
 Найвища складність, але універсальні
@@ -47,6 +73,23 @@ SELECT name
 	, rp
 FROM champs
 WHERE difficulty = 3 AND style = 10
+
+-- Висока складність, унікальний стиль
+-- 6 з них маги, високий дамаг/контроль, низька живучість, міддл
+SELECT name
+	, difficulty
+	, herotype
+	, alttype
+	, rangetype
+	, role
+	, damage
+	, toughness
+	, control
+	, mobility
+	, utility
+	, style
+FROM champs
+WHERE difficulty = 3 AND style >= 80
 
 /* Чому у деяких є альттайп? Від чого це залежить? Де їх краще поставити?
 1) 28 результатів. Тобто, більшість адаптивні?
@@ -149,3 +192,4 @@ GROUP BY name, rp, difficulty,
 	style
 ORDER BY rp 
 LIMIT 5
+
