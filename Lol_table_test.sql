@@ -59,3 +59,93 @@ SELECT name, difficulty, herotype, alttype, rangetype, date, client_positions, e
 FROM champs
 WHERE alttype is NULL AND 
 GROUP BY 
+
+/*
+Чому у деяких є нікнейм?
+14 персонажів з нікнеймами, чому?
+12 з них ресурс з мани
+*/
+SELECT *
+FROM champs
+WHERE nickname IS NOT NULL
+
+/*
+Хто найдорожчий? Чи впливає це на стати? Чому на них така ціна? Яка вигода для компанії?
+1) 4 найдорожчі випущені в 2024-2025
+2) складність 2
+3) 1 маг, 1 сапорт, 3 асасіни
+4) високий дамаг
+Хто найдешевший?
+1) низька складність
+2) 3 маги (всі мають унікальний стиль), 1 файтер, 1 асасін
+3) випуск 2009 (3), 2012(1), 2019(1)
+4)
+*/
+SELECT 
+    name,
+    be,
+    ROUND(AVG(SUM(be)) OVER ()) AS avg_be,
+    MIN(SUM(be)) OVER () AS min_be,
+    MAX(SUM(be)) OVER () AS max_be,
+	rp,
+    ROUND(AVG(SUM(rp)) OVER ()) AS avg_rp,
+    MIN(SUM(rp)) OVER () AS min_rp,
+    MAX(SUM(rp)) OVER () AS max_rp
+FROM champs
+GROUP BY name, be, rp
+
+-- Топ 5 найдорожчих
+SELECT 
+    name,
+	rp,
+    ROUND(AVG(SUM(rp)) OVER ()) AS avg_rp,
+    MAX(SUM(rp)) OVER () AS max_rp,
+	difficulty,
+	alttype,
+	date,
+	damage,
+	toughness,
+	control,
+	mobility,
+	utility,
+	style
+FROM champs
+GROUP BY name, rp, difficulty,
+	alttype,
+	date,
+	damage,
+	toughness,
+	control,
+	mobility,
+	utility,
+	style
+ORDER BY rp DESC
+LIMIT 5
+
+-- Хто найдешевший?
+SELECT 
+    name,
+	rp,
+    ROUND(AVG(SUM(rp)) OVER ()) AS avg_rp,
+    MIN(SUM(rp)) OVER () AS min_rp,
+	difficulty,
+	alttype,
+	date,
+	damage,
+	toughness,
+	control,
+	mobility,
+	utility,
+	style
+FROM champs
+GROUP BY name, rp, difficulty,
+	alttype,
+	date,
+	damage,
+	toughness,
+	control,
+	mobility,
+	utility,
+	style
+ORDER BY rp 
+LIMIT 5
