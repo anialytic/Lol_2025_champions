@@ -1,12 +1,14 @@
 SELECT *
 FROM champs
 
--- скільки персонажів кожного класу 
+-- скільки персонажів кожного класу ()
 -- спробувати написати код через count
 SELECT herotype
 	, COUNT(herotype) AS heros_count
+	,
 FROM champs
 GROUP BY herotype
+ORDER BY heros_count DESC
 
 /*
 Найменша складність, але найбільш виражений та специфічний стиль (їх 9), чому?
@@ -53,7 +55,7 @@ SELECT
     damage,
     style
 FROM champs
-WHERE damage = 1 AND herotype = 'Support'
+WHERE damage = 1 
 GROUP BY name, difficulty, herotype, alttype, damage, style
 
 /*
@@ -113,7 +115,6 @@ GROUP BY
 /*
 Чому у деяких є нікнейм?
 14 персонажів з нікнеймами, чому?
-12 з них ресурс з мани
 */
 SELECT *
 FROM champs
@@ -200,3 +201,12 @@ GROUP BY name, rp, difficulty,
 ORDER BY rp 
 LIMIT 5
 
+-- нові персонажі найдорожчі
+SELECT name
+	, date
+	, difficulty
+	, herotype
+	, be
+	, rp
+FROM champs
+WHERE date > '2023-12-31'
