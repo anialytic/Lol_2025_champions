@@ -1,6 +1,13 @@
 SELECT *
 FROM champs
 
+-- скільки персонажів кожного класу 
+-- спробувати написати код через count
+SELECT herotype
+	, COUNT(herotype) AS heros_count
+FROM champs
+GROUP BY herotype
+
 /*
 Найменша складність, але найбільш виражений та специфічний стиль (їх 9), чому?
 1) 1 танк (ближній), 4 маги, 4 сапортери (дальні)
