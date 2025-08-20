@@ -52,6 +52,13 @@ SELECT name
 FROM champs
 WHERE difficulty = 1 AND style <=20
 
+-- Скільки персонажів універсальних та спеціалізованих? (переписати код, розділити стиль на 3-4 категорії)
+SELECT style
+	, COUNT(style) AS style_nmb
+FROM champs
+GROUP BY style
+ORDER BY style 
+	
 --З чим пов'язаний низький дамаг? (вузькоспеціалізовані танки)
 SELECT 
     name,
