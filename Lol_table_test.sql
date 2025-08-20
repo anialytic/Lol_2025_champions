@@ -5,10 +5,16 @@ FROM champs
 -- спробувати написати код через count
 SELECT herotype
 	, COUNT(herotype) AS heros_count
-	,
 FROM champs
 GROUP BY herotype
 ORDER BY heros_count DESC
+-- скільки персонажів кожного класу різної складності (чи можна покращити запит?)
+SELECT herotype
+	, COUNT(herotype) AS heros_count
+	, difficulty
+FROM champs
+GROUP BY herotype, difficulty
+ORDER BY herotype DESC 
 
 /*
 Найменша складність, але найбільш виражений та специфічний стиль (їх 9), чому?
