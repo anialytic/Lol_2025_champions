@@ -216,3 +216,14 @@ SELECT name
 	, rp
 FROM champs
 WHERE date > '2023-12-31'
+
+-- найстарші персонажі (нескладні, дешеві, багато магів)
+SELECT name
+	, date
+	, difficulty
+	, herotype
+	, be
+	, rp
+FROM champs
+ORDER BY date ASC
+LIMIT 20
