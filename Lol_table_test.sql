@@ -254,3 +254,16 @@ WHERE damage = (
   SELECT MAX(damage)
   FROM champs
 );
+
+-- найвищий дамаг у класі
+SELECT herotype
+	, MAX(damage)
+FROM champs
+GROUP BY 1
+
+SELECT name, herotype, damage
+FROM champs
+WHERE damage = (
+  SELECT MAX(damage)
+  FROM champs
+);
