@@ -234,3 +234,23 @@ SELECT name
 FROM champs
 ORDER BY date ASC
 LIMIT 20
+
+-- вчусь вкладеним запитам
+-- герої з найвищим показником дамагу
+SELECT AVG(difficulty) AS AVG_difficulty
+FROM champs
+
+SELECT name
+	, MAX(difficulty)
+FROM champs 
+GROUP BY 1
+HAVING MAX(difficulty) >
+	(SELECT AVG(difficulty) AS avg_difficulty
+FROM champs)
+-- ще один варіант?
+SELECT name, damage
+FROM champs
+WHERE damage = (
+  SELECT MAX(damage)
+  FROM champs
+);
