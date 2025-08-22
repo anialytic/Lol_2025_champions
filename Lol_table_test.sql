@@ -267,3 +267,11 @@ WHERE damage = (
   SELECT MAX(damage)
   FROM champs
 );
+
+--тренуюсь у віконних функціях
+--найскладніші герої у кожній ролі
+SELECT name
+	, role
+	, difficulty
+    , DENSE_RANK() OVER (PARTITION BY role ORDER BY difficulty DESC) AS role_lvl
+FROM champs
