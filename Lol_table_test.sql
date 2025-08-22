@@ -275,3 +275,15 @@ SELECT name
 	, difficulty
     , DENSE_RANK() OVER (PARTITION BY role ORDER BY difficulty DESC) AS role_lvl
 FROM champs
+
+--середній показник шкоди по типу атаки
+SELECT rangetype
+	, AVG(damage) AS avg_damage
+FROM champs
+GROUP BY rangetype
+
+SELECT name
+	, rangetype
+	, AVG(damage) OVER (partition by rangetype)
+	, damage - AVG(damage) OVER (partition by rangetype) AS damage_diff
+FROM champs
