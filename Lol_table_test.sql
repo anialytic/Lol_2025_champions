@@ -277,13 +277,33 @@ SELECT name
 FROM champs
 
 --середній показник шкоди по типу атаки
-SELECT rangetype
+/*SELECT rangetype
 	, AVG(damage) AS avg_damage
 FROM champs
 GROUP BY rangetype
-
+*/
 SELECT name
 	, rangetype
 	, AVG(damage) OVER (partition by rangetype)
 	, damage - AVG(damage) OVER (partition by rangetype) AS damage_diff
 FROM champs
+
+-- мобільність у кожному типі героя
+SELECT name
+	, mobility
+	, herotype
+	, MAX(mobility) OVER (partition by herotype)
+	, DENSE_RANK() OVER (PARTITION BY herotype ORDER BY mobility DESC)
+FROM champs
+
+WITH cte AS (
+	SELECT name
+		, mobility
+		, herotype
+		, MAX(mobility) OVER (partition by herotype)
+		, DENSE_RANK() OVER (PARTITION BY herotype ORDER BY mobility DESC) AS dr
+	FROM champs
+)
+SELECT *
+FROM cte
+WHERE dr <= 3
