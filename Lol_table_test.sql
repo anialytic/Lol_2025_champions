@@ -307,3 +307,9 @@ WITH cte AS (
 SELECT *
 FROM cte
 WHERE dr <= 3
+
+-- кумулятивна сума вартості
+SELECT name
+	, rp
+	, SUM(rp) OVER (ORDER BY name ASC) AS total
+FROM champs
