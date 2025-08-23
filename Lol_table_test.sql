@@ -315,3 +315,38 @@ SELECT name
 	, rp
 	, SUM(rp) OVER (ORDER BY name ASC) AS total
 FROM champs
+
+-- дістати stats через JSON 
+-- TODO: виправити лапки у stats
+SELECT id,
+	name,
+	(REPLACE(stats, '''', '"')::jsonb)->>'hp_base' AS hp_base,
+	(REPLACE(stats, '''', '"')::jsonb)->>'hp_lvl' AS hp_lvl,
+	(REPLACE(stats, '''', '"')::jsonb)->>'mp_base' AS mp_base,
+	(REPLACE(stats, '''', '"')::jsonb)->>'mp_lvl' AS mp_lvl,
+	(REPLACE(stats, '''', '"')::jsonb)->>'arm_base' AS arm_base,
+	(REPLACE(stats, '''', '"')::jsonb)->>'arm_lvl' AS arm_lvl,
+	(REPLACE(stats, '''', '"')::jsonb)->>'mr_base' AS mr_base,
+	(REPLACE(stats, '''', '"')::jsonb)->>'mr_lvl' AS mr_lvl,
+	(REPLACE(stats, '''', '"')::jsonb)->>'hp5_base' AS hp5_base,
+	(REPLACE(stats, '''', '"')::jsonb)->>'hp5_lvl' AS hp5_lvl,
+	(REPLACE(stats, '''', '"')::jsonb)->>'mp5_base' AS mp5_base,
+	(REPLACE(stats, '''', '"')::jsonb)->>'mp5_lvl' AS mp5_lvl,
+	(REPLACE(stats, '''', '"')::jsonb)->>'dam_base' AS dam_base,
+	(REPLACE(stats, '''', '"')::jsonb)->>'dam_lvl' AS dam_lvl,
+	(REPLACE(stats, '''', '"')::jsonb)->>'as_base' AS as_base,
+	(REPLACE(stats, '''', '"')::jsonb)->>'as_lvl' AS as_lvl,
+	(REPLACE(stats, '''', '"')::jsonb)->>'range' AS range,
+	(REPLACE(stats, '''', '"')::jsonb)->>'ms' AS ms,
+	(REPLACE(stats, '''', '"')::jsonb)->>'acquisition_radius' AS acquisition_radius,
+	(REPLACE(stats, '''', '"')::jsonb)->>'selection_height' AS selection_height,
+	(REPLACE(stats, '''', '"')::jsonb)->>'selection_radius' AS selection_radius,
+	(REPLACE(stats, '''', '"')::jsonb)->>'pathing_radius' AS pathing_radius,
+	(REPLACE(stats, '''', '"')::jsonb)->>'as_ratio' AS as_ratio,
+	(REPLACE(stats, '''', '"')::jsonb)->>'attack_cast_time' AS attack_cast_time,
+	(REPLACE(stats, '''', '"')::jsonb)->>'attack_total_time' AS attack_total_time, 
+	(REPLACE(stats, '''', '"')::jsonb)->'aram'->>'dmg_dealt' AS aram_dmg_dealt,
+    (REPLACE(stats, '''', '"')::jsonb)->'aram'->>'dmg_taken' AS aram_dmg_taken,
+    (REPLACE(stats, '''', '"')::jsonb)->'urf'->>'dmg_dealt' AS urf_dmg_dealt,
+    (REPLACE(stats, '''', '"')::jsonb)->'urf'->>'dmg_taken' AS urf_dmg_taken
+FROM champs;
