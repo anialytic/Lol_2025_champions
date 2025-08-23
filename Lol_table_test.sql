@@ -2,13 +2,14 @@ SELECT *
 FROM champs
 
 -- скільки персонажів кожного класу ()
--- спробувати написати код через count
+-- TODO: написати код через count
 SELECT herotype
 	, COUNT(herotype) AS heros_count
 FROM champs
 GROUP BY herotype
 ORDER BY heros_count DESC
--- скільки персонажів кожного класу різної складності (чи можна покращити запит?)
+-- скільки персонажів кожного класу різної складності
+-- TODO: покращити запит
 SELECT herotype
 	, COUNT(herotype) AS heros_count
 	, difficulty
@@ -52,7 +53,8 @@ SELECT name
 FROM champs
 WHERE difficulty = 1 AND style <=20
 
--- Скільки персонажів універсальних та спеціалізованих? (переписати код, розділити стиль на 3-4 категорії)
+-- Скільки персонажів універсальних та спеціалізованих? 
+-- TODO: переписати, розділити стиль на 3-4 категорії
 SELECT style
 	, COUNT(style) AS style_nmb
 FROM champs
