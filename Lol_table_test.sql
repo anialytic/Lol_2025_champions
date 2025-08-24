@@ -317,8 +317,8 @@ SELECT name
 FROM champs
 
 -- дістати stats через JSON 
--- TODO: виправити лапки у stats
-SELECT id,
+-- TODO: виправити лапки у stats (виконано)
+/*(більше не працюватиме)SELECT id,
 	name,
 	(REPLACE(stats, '''', '"')::jsonb)->>'hp_base' AS hp_base,
 	(REPLACE(stats, '''', '"')::jsonb)->>'hp_lvl' AS hp_lvl,
@@ -349,4 +349,20 @@ SELECT id,
     (REPLACE(stats, '''', '"')::jsonb)->'aram'->>'dmg_taken' AS aram_dmg_taken,
     (REPLACE(stats, '''', '"')::jsonb)->'urf'->>'dmg_dealt' AS urf_dmg_dealt,
     (REPLACE(stats, '''', '"')::jsonb)->'urf'->>'dmg_taken' AS urf_dmg_taken
-FROM champs;
+FROM champs;*/
+
+SELECT id, COUNT(*) 
+FROM champs
+GROUP BY id
+HAVING COUNT(*) > 1;
+
+SELECT * FROM champ_stats LIMIT 10;
+SELECT * FROM champ_mods  LIMIT 10;
+
+-- найживучіші персонажі
+SELECT name, id, herotype,
+	hp_lvl + hp_base AS hp
+FROM champ_stats s
+JOIN champs c ON s.champ_id = c.id
+ORDER BY hp DESC
+LIMIT 10
