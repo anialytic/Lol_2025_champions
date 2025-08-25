@@ -366,3 +366,11 @@ FROM champ_stats s
 JOIN champs c ON s.champ_id = c.id
 ORDER BY hp DESC
 LIMIT 10
+
+-- зв'язок між атк-спід з типом героя
+SELECT c.herotype, AVG(s.as_ratio) AS avg_as_ratio, COUNT(*) AS hero_count
+FROM champ_stats s
+JOIN champs c ON s.champ_id = c.id
+GROUP BY c.herotype
+ORDER BY avg_as_ratio DESC
+
