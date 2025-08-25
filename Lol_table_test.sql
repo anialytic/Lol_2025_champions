@@ -368,9 +368,19 @@ ORDER BY hp DESC
 LIMIT 10
 
 -- зв'язок між атк-спід з типом героя
-SELECT c.herotype, AVG(s.as_ratio) AS avg_as_ratio, COUNT(*) AS hero_count
+SELECT herotype, AVG(as_ratio) AS avg_as_ratio, COUNT(*) AS hero_count
 FROM champ_stats s
 JOIN champs c ON s.champ_id = c.id
-GROUP BY c.herotype
+GROUP BY herotype
 ORDER BY avg_as_ratio DESC
 
+-- швидкість атаки/сила атаки -> мода: файтер
+SELECT name, champ_id, herotype, as_ratio, dam_base + 17 * dam_lvl AS damage_lvl18
+FROM champ_stats s
+JOIN champs c ON s.champ_id = c.id
+WHERE as_ratio > 
+(
+	SELECT AVG(as_ratio) AS avg_as_ratio
+	FROM champ_stats
+) AND (dam_base + 17*dam_lvl) > (SELECT AVG(dam_base + 17*dam_lvl) FROM champ_stats)
+ORDER BY as_ratio DESC
