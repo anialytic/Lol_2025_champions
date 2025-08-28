@@ -367,7 +367,7 @@ JOIN champs c ON s.champ_id = c.id
 ORDER BY hp DESC
 LIMIT 10
 
--- зв'язок між атк-спід з типом героя
+-- зв'язок між швидкістю атаки з типом героя
 SELECT herotype, AVG(as_ratio) AS avg_as_ratio, COUNT(*) AS hero_count
 FROM champ_stats s
 JOIN champs c ON s.champ_id = c.id
