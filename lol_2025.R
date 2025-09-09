@@ -15,3 +15,6 @@ lol_2025 %>%
   filter(difficulty == 1) %>%
   filter(style <= 20) %>%
   group_by (herotype)
+
+# гістограма за ціною героїв
+ggplot(lol_2025,aes(x=rp)) + geom_histogram(bins=172, color="brown", fill="pink")
